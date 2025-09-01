@@ -73,4 +73,28 @@ public class BookManagerTest {
         assertTrue(semuaBuku.contains(buku1));
         assertTrue(semuaBuku.contains(buku2));
     }
+
+    @Test
+    void testInvalidBook() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Book("", "Author", 2020);
+        });
+        assertEquals("Judul tidak boleh kosong", exception.getMessage());
+    }
+
+    @Test
+    void testInvalidAuthor() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Book("Judul", "", 2020);
+        });
+        assertEquals("Penulis tidak boleh kosong", exception.getMessage());
+    }
+
+    @Test
+    void testInvalidYear() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Book("Judul", "Author", -2020);
+        });
+        assertEquals("Tahun harus angka positif", exception.getMessage());
+    }
 }
